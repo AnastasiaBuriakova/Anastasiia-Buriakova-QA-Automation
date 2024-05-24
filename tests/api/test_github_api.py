@@ -31,3 +31,21 @@ def test_repo_cannot_be_found(github_api):
 def test_repo_with_single_char_be_found(github_api):
     r = github_api.search_repo("s")
     assert r["total_count"] != 0
+
+
+@pytest.mark.api
+def test_emojis_len(github_api):
+    r = github_api.search_emojis()
+    assert len(r) > 0
+
+
+@pytest.mark.api
+def test_emojis_not_repeated(github_api):
+    r = github_api.search_emojis()
+    assert "cactus" in r
+
+
+@pytest.mark.api
+def test_commits_found(github_api):
+    r = github_api.list_commits_of_owner("octocat", "Hello-World")
+    assert len(r) > 0
