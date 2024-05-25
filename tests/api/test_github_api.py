@@ -49,3 +49,4 @@ def test_emojis_not_repeated(github_api):
 def test_commits_found(github_api):
     r = github_api.list_commits_of_owner("octocat", "Hello-World")
     assert len(r) > 0
+    
