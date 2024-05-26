@@ -37,7 +37,7 @@ class Database:
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
-    
+
     def insert_product(self, product_id, name, description, qnt):
         query = f"INSERT OR REPLACE INTO products (id, name, description, quantity) \
             VALUES ({product_id}, '{name}', '{description}', {qnt})"
@@ -58,3 +58,34 @@ class Database:
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
+    
+    def insert_number_of_product(self, product_id, name, description, qnt):
+        query = f"INSERT OR REPLACE INTO products (id, name, description, quantity) \
+            VALUES ({product_id}, '{name}', '{description}', {qnt})"
+        self.cursor.execute(query)
+        self.connection.commit()
+
+    def update_customer_name_by_id(self, customer_id, name):
+        query = f"UPDATE customers SET name = '{name}' WHERE id = {customer_id}"
+        self.cursor.execute(query)
+        self.connection.commit() 
+
+    def select_customer_name_by_id(self, customer_id):
+        query = f"SELECT name FROM customers WHERE id = {customer_id}"
+        self.cursor.execute(query)
+        record = self.cursor.fetchone() #to get a single record
+        return record[0] if record else None 
+    
+    def get_address_by_the_name(self, name):
+        query = f"SELECT address, city, postalCode, country FROM customers WHERE name = '{name}'"  
+        self.cursor.execute(query)
+        record = self.cursor.fetchone()
+        return record
+    
+    def select_product_name_by_id(self, product_id):
+        query = f"SELECT name FROM products WHERE id = {product_id}"
+        self.cursor.execute(query)
+        record = self.cursor.fetchone()
+        return record[0] if record else None 
+
+    # чи приймає текст там де числовий формат
