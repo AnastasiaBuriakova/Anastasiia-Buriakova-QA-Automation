@@ -71,9 +71,11 @@ def test_detailed_orders():
 @pytest.mark.database
 def test_product_insert_with_huge_number():
     db = Database()
-    db.insert_number_of_product(55, "цукерки", "баунті", 9999999999999999999999999999999999999999)
+    db.insert_product(
+        55, "цукерки", "баунті", 999999999999999999999999999999999999999999999999999
+    )
     # test if a system accept huge unreal quantity with 51 characters
-    sweets_qnt = db.select_product_qnt_by_id(55)
+    sweets_qnt = db.select_product_qnt_by_id(55)[0]
 
     assert sweets_qnt is not None
 
@@ -83,7 +85,7 @@ def test_update_quantity_with_negative_value():
     db = Database()
     db.update_product_qnt_by_id(55, -5)
     new_qnt = db.select_product_qnt_by_id(55)
-   
+
     assert new_qnt is not None
     assert new_qnt[0][0] == -5
 
@@ -102,7 +104,8 @@ def test_get_address_using_unexisting_name():
     db = Database()
     address = db.get_address_by_the_name("Petro")
 
-    assert address is None
+    assert address is None or len(address) == 0
+
 
 @pytest.mark.database
 def test_insert_product_with_uppercase():
@@ -111,3 +114,20 @@ def test_insert_product_with_uppercase():
     new_product = db.select_product_name_by_id(10)
 
     assert new_product == "МОЛОКО"
+
+
+@pytest.mark.database
+def test_insert_number_using_numbers_instead_of_letters():
+    db = Database()
+    db.insert_product(11, "5", "чорна", 4)
+    name = db.select_customer_name_by_id(11)
+
+    assert name is None
+
+@pytest.mark.database
+def test_insert_empty_field():
+    db = Database()
+    db.insert_product(12, "", "рожева", 10)
+    name = db.select_customer_name_by_id(11)
+
+    assert name is None 

@@ -40,7 +40,7 @@ def test_emojis_len(github_api):
 
 
 @pytest.mark.api
-def test_emojis_not_repeated(github_api):
+def test_emojis_exist(github_api):
     r = github_api.search_emojis()
     assert "cactus" in r
 

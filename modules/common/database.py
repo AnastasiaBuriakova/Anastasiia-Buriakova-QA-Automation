@@ -58,12 +58,6 @@ class Database:
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
-    
-    def insert_number_of_product(self, product_id, name, description, qnt):
-        query = f"INSERT OR REPLACE INTO products (id, name, description, quantity) \
-            VALUES ({product_id}, '{name}', '{description}', {qnt})"
-        self.cursor.execute(query)
-        self.connection.commit()
 
     def update_customer_name_by_id(self, customer_id, name):
         query = f"UPDATE customers SET name = '{name}' WHERE id = {customer_id}"
@@ -88,4 +82,4 @@ class Database:
         record = self.cursor.fetchone()
         return record[0] if record else None 
 
-    # чи приймає текст там де числовий формат
+    # чи приймає текст там де числовий формат, чи пусте поле, 
