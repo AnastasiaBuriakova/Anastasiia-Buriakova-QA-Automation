@@ -81,5 +81,10 @@ class Database:
         self.cursor.execute(query)
         record = self.cursor.fetchone()
         return record[0] if record else None 
-
-    # чи приймає текст там де числовий формат, чи пусте поле, 
+    
+        #negative testing if database accept letters instead of numbers:
+    def insert_quantity_as_letters(self, product_id, name, description, qnt):
+        query = f"INSERT OR REPLACE INTO products (id, name, description, quantity) \
+            VALUES ({product_id}, '{name}', '{description}','{qnt}')"
+        self.cursor.execute(query)
+        self.connection.commit()

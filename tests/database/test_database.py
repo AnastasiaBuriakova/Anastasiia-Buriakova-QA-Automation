@@ -131,3 +131,12 @@ def test_insert_empty_field():
     name = db.select_customer_name_by_id(11)
 
     assert name is None 
+
+@pytest.mark.database
+def test_product_insert_with_text_instead_of_number():
+    db = Database()
+    db.insert_quantity_as_letters(65, "батончик", "снікерс", "десять")
+    result = db.select_product_qnt_by_id(65)
+    
+    assert len(result) is not None
+    assert result != "десять"
