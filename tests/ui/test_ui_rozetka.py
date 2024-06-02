@@ -1,4 +1,4 @@
-from modules.ui.page_objects.rozetka_find_parsel import FindParsel
+from modules.ui.page_objects.rozetka_ui_testing import FindParsel
 import pytest
 
 
