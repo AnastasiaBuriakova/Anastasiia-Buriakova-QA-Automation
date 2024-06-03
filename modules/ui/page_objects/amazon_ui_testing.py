@@ -1,5 +1,7 @@
 from modules.ui.page_objects.base_page import BasePage
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # запуск тесту з -s тому що потрібно вручну ввести captcha! (pytest -k "test_amazon_adding_to_cart" -s)
 
@@ -31,10 +33,46 @@ class AddingToCart(BasePage):
         choose_item = self.driver.find_element(By.LINK_TEXT, "Gone with the Wind")
         choose_item.click()
 
-    def adding_item_to_basket(self):
+    def adding_item_to_cart(self):
         basket_button = self.driver.find_element(By.ID, "add-to-cart-button")
         basket_button.click()
 
     def checking_an_item_is_added(self, expected_message):
         message = self.driver.find_element(By.ID, "NATC_SMART_WAGON_CONF_MSG_SUCCESS")
         return message.text == expected_message
+
+    def go_to_cart(self):
+        go_cart = self.driver.find_element(By.LINK_TEXT, "Go to Cart")
+        go_cart.click()
+
+    def click_compare_button(self):
+        compare_button = self.driver.find_element(
+            By.CSS_SELECTOR, "#comparison-lite-modal-1451635621 input"
+        )
+        compare_button.click()
+
+    def similar_books_are_shown(self, expected_text):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, ".a-popover .a-popover-inner h1")
+            )
+        )
+        books_shown = self.driver.find_element(
+            By.CSS_SELECTOR, ".a-popover .a-popover-inner h1"
+        )
+        return books_shown.text == expected_text
+
+    def deleting_a_book(self):
+        delete_book = self.driver.find_element(By.CSS_SELECTOR, ".a-declarative .a-color-link")
+        delete_book.click()
+
+    def checking_the_book_was_deleted(self, expected_text):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(
+                (By.CSS_SELECTOR, ".a-row .a-row .a-spacing-mini")
+            )
+        )
+        book_deleted = self.driver.find_element(
+            By.CSS_SELECTOR, ".a-row .a-row .a-spacing-mini"
+        )
+        return book_deleted.text == expected_text
