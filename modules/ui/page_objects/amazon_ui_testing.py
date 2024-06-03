@@ -51,10 +51,10 @@ class AddingToCart(BasePage):
         )
         compare_button.click()
 
-    def similar_books_are_shown(self, expected_text):
+    def similar_books_are_shown(self, expected_text):  #added waiting time until special part of page is downloaded
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(
-                (By.CSS_SELECTOR, ".a-popover .a-popover-inner h1")
+                (By.CSS_SELECTOR, ".a-popover .a-popover-inner h1")  
             )
         )
         books_shown = self.driver.find_element(

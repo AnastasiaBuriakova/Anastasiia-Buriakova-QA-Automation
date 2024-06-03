@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.mark.ui
-def test_added_to_cart():
+def test_added_an_item_to_cart_succesfully():
 
     adding_to_cart = AddingToCart()
 
@@ -19,7 +19,7 @@ def test_added_to_cart():
     adding_to_cart.close()
 
 @pytest.mark.ui
-def test_adding_similar_item_to_cart():
+def test_similar_books_are_shown():
 
     adding_to_cart = AddingToCart()
 
