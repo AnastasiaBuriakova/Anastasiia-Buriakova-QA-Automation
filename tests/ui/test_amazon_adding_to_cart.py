@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.mark.ui
-def test_subtotal_amount():
+def test_added_to_cart():
 
     adding_to_cart = AddingToCart()
 
