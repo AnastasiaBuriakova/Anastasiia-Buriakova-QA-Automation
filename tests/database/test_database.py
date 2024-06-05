@@ -7,13 +7,15 @@ def test_database_connection():
     db = Database()
     db.test_connection()
 
+    assert 1 == 1
+
 
 @pytest.mark.database
 def test_check_all_users():
     db = Database()
-    users = db.get_all_users()  # присвоєння результату виконання
+    users = db.get_all_users()
 
-    print(users)
+    assert users is not None
 
 
 @pytest.mark.database
@@ -71,9 +73,8 @@ def test_detailed_orders():
 @pytest.mark.database
 def test_product_insert_with_huge_number():
     db = Database()
-    db.insert_product(
-        55, "цукерки", "баунті", 999999999999999999999999999999999999999999999999999
-    )
+    quant_with_51_characters = 999999999999999999999999999999999999999999999999999
+    db.insert_product(55, "цукерки", "баунті", quant_with_51_characters)
     # test if a system accept huge unreal quantity with 51 characters
     sweets_qnt = db.select_product_qnt_by_id(55)[0]
 
@@ -104,7 +105,7 @@ def test_get_address_using_unexisting_name():
     db = Database()
     address = db.get_address_by_the_name("Petro")
 
-    assert address is None or len(address) == 0
+    assert address is None
 
 
 @pytest.mark.database
@@ -124,19 +125,21 @@ def test_insert_number_using_numbers_instead_of_letters():
 
     assert name is None
 
+
 @pytest.mark.database
 def test_insert_empty_field():
     db = Database()
     db.insert_product(12, "", "рожева", 10)
     name = db.select_customer_name_by_id(11)
 
-    assert name is None 
+    assert name is None
+
 
 @pytest.mark.database
 def test_product_insert_with_text_instead_of_number():
     db = Database()
     db.insert_quantity_as_letters(65, "батончик", "снікерс", "десять")
     result = db.select_product_qnt_by_id(65)
-    
+
     assert len(result) is not None
     assert result != "десять"

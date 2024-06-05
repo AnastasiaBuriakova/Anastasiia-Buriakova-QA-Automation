@@ -1,5 +1,7 @@
 import pytest
 from modules.api.clients.github import GitHub
+from modules.ui.page_objects.rozetka_ui_testing import FindParsel
+from modules.ui.page_objects.amazon_ui_testing import AddingToCart
 
 
 class User:
@@ -31,3 +33,21 @@ def user():
 def github_api():
     api = GitHub()
     yield api
+
+
+@pytest.fixture
+def rozetka_ui():
+    find_parsel = FindParsel()
+
+    yield find_parsel
+
+    find_parsel.close()
+
+
+@pytest.fixture
+def amazon_ui():
+    adding_to_cart = AddingToCart()
+
+    yield adding_to_cart
+
+    adding_to_cart.close()

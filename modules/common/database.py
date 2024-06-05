@@ -88,3 +88,5 @@ class Database:
             VALUES ({product_id}, '{name}', '{description}','{qnt}')"
         self.cursor.execute(query)
         self.connection.commit()
+
+        

@@ -27,3 +27,5 @@ class FindParsel(BasePage):
             By.CSS_SELECTOR, ".tracking .validation-message"
         )
         return error_message.text == expected_message
+    
+    

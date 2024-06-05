@@ -18,3 +18,4 @@ def test_check_incorrect_user_page_object():
 
     # Закриваємо браузер
     sign_in_page.close()
+    

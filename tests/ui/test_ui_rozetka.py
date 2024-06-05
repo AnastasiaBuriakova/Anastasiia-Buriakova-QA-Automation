@@ -3,16 +3,13 @@ import pytest
 
 
 @pytest.mark.ui
-def test_incorrect_tracking_number():
+def test_incorrect_tracking_number(rozetka_ui):
 
-    find_parsel = FindParsel()
+    rozetka_ui.open_tracking()
 
-    find_parsel.open_tracking()
+    rozetka_ui.try_entering_tracking_number("1231231567898765")
 
-    find_parsel.try_entering_tracking_number("1231231567898765")
-
-    assert find_parsel.check_validation_message(
+    assert rozetka_ui.check_validation_message(
         "Невірний формат номеру посилки. Перевірте вказані символи, а також довжину номеру, яка має бути не більше 13 символів."
     )
 
-    find_parsel.close()
