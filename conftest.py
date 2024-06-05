@@ -1,7 +1,7 @@
 import pytest
 from modules.api.clients.github import GitHub
 from modules.ui.page_objects.rozetka_ui_testing import FindParsel
-from modules.ui.page_objects.amazon_ui_testing import AddingToCart
+from modules.ui.page_objects.amazon_ui_testing import AddToCart
 
 
 class User:
@@ -46,8 +46,8 @@ def rozetka_ui():
 
 @pytest.fixture
 def amazon_ui():
-    adding_to_cart = AddingToCart()
+    add_to_cart = AddToCart()
 
-    yield adding_to_cart
+    yield add_to_cart
 
-    adding_to_cart.close()
+    add_to_cart.close()

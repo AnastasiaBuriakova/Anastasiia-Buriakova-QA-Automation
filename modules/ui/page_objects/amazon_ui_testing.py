@@ -3,18 +3,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# запуск тесту з -s тому що потрібно вручну ввести captcha! (pytest -k "test_amazon_add_to_cart" -s)
+# run the test with -s because you need to manually enter the captcha! (pytest -k "test_amazon_add_to_cart" -s)
 
 
-class AddingToCart(BasePage):
+class AddToCart(BasePage):
     URL = "https://www.amazon.com/"
 
     def __init__(self) -> None:
         super().__init__()
 
     def go_to(self):
-        self.driver.get(AddingToCart.URL)
-        # запуск тесту з -s тому що потрібно вручну ввести captcha! (pytest -k "test_amazon_add_to_cart" -s)
+        self.driver.get(AddToCart.URL)
+        # run the test with -s because you need to manually enter the captcha! (pytest -k "test_amazon_add_to_cart" -s)
         input("deal with captcha and click enter in GitBash")
 
     def search_field_click(self):
@@ -37,10 +37,6 @@ class AddingToCart(BasePage):
         basket_button = self.driver.find_element(By.ID, "add-to-cart-button")
         basket_button.click()
 
-    def check_an_item_is_added(self, expected_message):
-        message = self.driver.find_element(By.ID, "NATC_SMART_WAGON_CONF_MSG_SUCCESS")
-        return message.text == expected_message
-
     def go_to_cart(self):
         go_cart = self.driver.find_element(By.LINK_TEXT, "Go to Cart")
         go_cart.click()
@@ -51,10 +47,12 @@ class AddingToCart(BasePage):
         )
         compare_button.click()
 
-    def similar_books_are_shown(self, expected_text):  #added waiting time until special part of page is downloaded
+    def similar_books_are_shown(
+        self, expected_text
+    ):  # added waiting time until special part of page is downloaded
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(
-                (By.CSS_SELECTOR, ".a-popover .a-popover-inner h1")  
+                (By.CSS_SELECTOR, ".a-popover .a-popover-inner h1")
             )
         )
         books_shown = self.driver.find_element(
@@ -63,8 +61,14 @@ class AddingToCart(BasePage):
         return books_shown.text == expected_text
 
     def delete_a_book(self):
-        delete_book = self.driver.find_element(By.CSS_SELECTOR, ".a-declarative .a-color-link")
+        delete_book = self.driver.find_element(
+            By.CSS_SELECTOR, ".a-declarative .a-color-link"
+        )
         delete_book.click()
+
+    def check_an_item_is_added(self, expected_message):
+        message = self.driver.find_element(By.ID, "NATC_SMART_WAGON_CONF_MSG_SUCCESS")
+        return message.text == expected_message
 
     def check_the_book_was_deleted(self, expected_text):
         WebDriverWait(self.driver, 10).until(
@@ -76,5 +80,3 @@ class AddingToCart(BasePage):
             By.CSS_SELECTOR, ".a-row .a-row .a-spacing-mini"
         )
         return book_deleted.text == expected_text
-    
-    

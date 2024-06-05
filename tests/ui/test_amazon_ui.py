@@ -1,9 +1,9 @@
-from modules.ui.page_objects.amazon_ui_testing import AddingToCart
+from modules.ui.page_objects.amazon_ui_testing import AddToCart
 import pytest
 
 
 @pytest.mark.ui
-def test_added_an_item_to_cart_succesfully(amazon_ui):
+def test_an_item_added_to_cart_succesfully(amazon_ui):
 
     amazon_ui.go_to()
     amazon_ui.search_field_click()
@@ -31,7 +31,7 @@ def test_similar_books_are_shown(amazon_ui):
 
 
 @pytest.mark.ui
-def test_the_book_was_deleted(amazon_ui):
+def test_book_was_deleted(amazon_ui):
 
     amazon_ui.go_to()
     amazon_ui.search_field_click()
