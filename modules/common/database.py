@@ -11,18 +11,18 @@ class Database:
 
     def test_connection(self):
         sqlite_select_Query = "SELECT sqlite_version();"
-        self.cursor.execute(sqlite_select_Query)  # виконання запиту в БД
-        record = self.cursor.fetchall()  # отримання результатів виконання
+        self.cursor.execute(sqlite_select_Query)  
+        record = self.cursor.fetchall() 
         print(f"Connected successfully. SQLite Database Version is: {record}")
 
     def get_all_users(self):
-        query = "SELECT name, address, city FROM customers"  # прочитати
-        self.cursor.execute(query)  # запит в БД
-        record = self.cursor.fetchall()  # присвоєння результату виконання запиту
+        query = "SELECT name, address, city FROM customers"  # read
+        self.cursor.execute(query)  # request to DB
+        record = self.cursor.fetchall()  #assigning the result of execution
         return record
 
     def get_address_by_name(self, name):
-        query = f"SELECT address, city, postalCode, country FROM customers WHERE name = '{name}'"  # текстовий тип даних нейм того обовязкові одинарні лапки
+        query = f"SELECT address, city, postalCode, country FROM customers WHERE name = '{name}'"  
         self.cursor.execute(query)
         record = self.cursor.fetchall()
         return record
@@ -30,7 +30,7 @@ class Database:
     def update_product_qnt_by_id(self, product_id, qnt):
         query = f"UPDATE products SET quantity = {qnt} WHERE id = {product_id}"
         self.cursor.execute(query)
-        self.connection.commit()  # підтвердження змін в БД, щоб випадково не змінити дані які не хотіли
+        self.connection.commit()  # confirmation of changes in the database so as not to accidentally change data that you did not want
 
     def select_product_qnt_by_id(self, product_id):
         query = f"SELECT quantity FROM products WHERE id = {product_id}"
