@@ -24,7 +24,7 @@ The project is organized as follows:
     │   ├── api/
     │   │   ├── clients/
     │   │   │   ├── __init__.py
-    │   │   │   ├── github.py
+    │   │   │   └── github.py
     │   ├── common/
     │   │   ├── test_database.py
     │   │   └── __init__.py
@@ -48,10 +48,11 @@ The project is organized as follows:
     │   │   └── test_ui.py
     ├── become_qa_auto.db
     ├── pytest.ini
+    ├── conftest.py
     └── README.md
 
 ### Prerequisites
-- python 3.12.2
+- python 3.12.1 and newlest
 - pytest 8.2.0
 - Selenium WebDriver
 - SQLite
